@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/txtNombreUsuarioHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/nombreUsuario"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/imgButtonAdd"
+            android:layout_width="30dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="12dp"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="@color/colorPrimary"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/txtNombreUsuarioHeader"
+            app:layout_constraintEnd_toStartOf="@+id/txtNombreUsuarioHeader"
+            app:layout_constraintTop_toTopOf="@+id/txtNombreUsuarioHeader"
+            app:srcCompat="@android:drawable/ic_menu_add"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.Toolbar>
