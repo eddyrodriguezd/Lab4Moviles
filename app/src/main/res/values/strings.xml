@@ -1,4 +1,8 @@
 <resources>
+    <!-- Facebook Strings-->
+    <string name="facebook_app_id">315099896560705</string>
+    <string name="fb_login_protocol_scheme">fb315099896560705</string>
+
     <string name="app_name">Lab4Moviles</string>
     <string name="nombreUsuario">NombreUsuario</string>
     <string name="fecha">Fecha</string>
