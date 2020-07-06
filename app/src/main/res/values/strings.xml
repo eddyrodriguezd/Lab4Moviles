@@ -5,4 +5,8 @@
     <string name="cantComentarios">Número de comentarios</string>
     <string name="descripcion">Descripción</string>
     <string name="verMas">Ver más</string>
+    <string name="agregarComentario">Agregar Comentario</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="ningunComentario">Aún no hay ningún comentario</string>
+    <string name="comentarioInfo">nombreUsuario - Fecha</string>
 </resources>

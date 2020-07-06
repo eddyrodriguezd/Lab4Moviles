@@ -35,9 +35,6 @@ import static com.lab4moviles.util.Util.isInternetAvailable;
 
 public class MainActivity extends AppCompatActivity {
 
-    //POR AHORA, LUEGO CAMBIAR POR EL VERDADERO
-    private String userId = "idUsuario";
-
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private FirebaseStorage fStorage;
@@ -71,14 +68,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    //Actualiza el Recycler View
+    //Actualiza el Recycler View de publicaciones
     public void refreshView(){
         getPublicacionesfromFirebase(new FirebaseCallback() {
             @Override
             public void onSuccess() {
-                PublicacionesAdapter listaIncidenciasAdapter = new PublicacionesAdapter(listaPublicaciones,
+                PublicacionesAdapter publicacionesAdapter = new PublicacionesAdapter(listaPublicaciones,
                         MainActivity.this, fStorage.getReference());
-                recyclerView.setAdapter(listaIncidenciasAdapter);
+                recyclerView.setAdapter(publicacionesAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             }
         });
@@ -92,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             listaPublicaciones.clear();
 
             fStore.collection("publicaciones")
-                    .whereEqualTo("usuario.id", userId)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

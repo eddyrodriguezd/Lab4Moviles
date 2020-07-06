@@ -53,22 +53,11 @@ public class Util {
     }
 
     public static String formatDate(Date date){
-        String name = new SimpleDateFormat("EEEE dd MMMM yyyy", new Locale("es", "PE")).format(date);
-        String s1 = name.substring(0, 1).toUpperCase();
-        return s1 + name.substring(1);
+        return new SimpleDateFormat("dd/MM/yyyy", new Locale("es", "PE")).format(date);
     }
 
-    public static Date get00Time(Date date, int addDays){
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        if(addDays>0){
-            cal.add(Calendar.DATE, addDays);
-        }
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTime();
+    public static String formatDateTime(Date date){
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", new Locale("es", "PE")).format(date);
     }
 
 }
