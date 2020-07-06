@@ -1,12 +1,16 @@
 package com.lab4moviles;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,16 +59,25 @@ public class MainActivity extends AppCompatActivity {
         fStorage = FirebaseStorage.getInstance();
         recyclerView = findViewById(R.id.recyclerViewPublicaciones);
         refreshView();
+
+        //Agregar foto
+        findViewById(R.id.imgButtonAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Agregar foto", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            // do your stuff
-        } else {
+            TextView txtNombreUsuarioHeader = findViewById(R.id.txtNombreUsuarioHeader);
+            txtNombreUsuarioHeader.setText(Objects.requireNonNull(user.getDisplayName()).split(" ")[0]);
+        } /*else {
             signInAnonymously();
-        }
+        }*/
         super.onStart();
     }
 
@@ -141,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void signInAnonymously() {
+    /*private void signInAnonymously() {
         mAuth.signInAnonymously().addOnSuccessListener(this, new  OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
@@ -152,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception exception) {
                     }
                 });
-    }
+    }*/
 
 
 }
