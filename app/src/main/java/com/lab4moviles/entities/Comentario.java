@@ -10,6 +10,10 @@ public class Comentario implements Serializable {
     private Date fecha;
     private String texto;
 
+    public Comentario(){
+
+    }
+
     public Comentario(Date fecha, String texto) {
         this.fecha = fecha;
         this.texto = texto;

@@ -6,72 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".PhotoActivity">
 
+    <include
+        android:id="@+id/toolbar_PhotoActivity"
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
-        android:id="@+id/idTituloSubirFoto"
+        android:id="@+id/txtTituloSubirFoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Subir Foto"
-        android:textColor="#000000"
-        android:textSize="29sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_PhotoActivity" />
 
-    <TextView
-        android:id="@+id/idTituloDescripcion"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtDescripcionPublicacion"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="532dp"
-        android:text="Descripción"
-        android:textColor="#3F51B5"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/descripcion"
+        app:counterEnabled="true"
+        app:counterMaxLength="150"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTituloSubirFoto"
-        app:layout_constraintVertical_bias="0.488" />
+        app:layout_constraintStart_toStartOf="@+id/txtTituloSubirFoto"
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloSubirFoto">
 
-    <EditText
-        android:id="@+id/idDescripcionFoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTituloDescripcion"
-        app:layout_constraintVertical_bias="0.068" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtDescripcionFoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:maxLength="150"
+            android:maxLines="4"
+            android:scrollbars="vertical" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/idSeleccionarFoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Seleccionar Foto"
-        android:textColor="#F44336"
-        android:textColorHint="#ECE1E1"
-        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="@string/seleccionarFoto"
+        app:icon="@drawable/ic_insert_photo_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescripcionPublicacion" />
+
+    <ImageView
+        android:id="@+id/imgSelected"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.255"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idDescripcionFoto"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintTop_toBottomOf="@+id/idSeleccionarFoto"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.011"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abc_vector_test" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,8 @@
             android:value="@string/facebook_app_id"/>
 
         <activity android:name=".CommentActivity"/>
-        <activity android:name=".PhotoActivity" />
+        <activity android:name=".PhotoActivity"
+            android:theme="@style/NoActionBar"/>
         <activity android:name=".DetailsActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

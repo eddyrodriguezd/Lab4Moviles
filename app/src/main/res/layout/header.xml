@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.Toolbar  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
@@ -16,9 +17,9 @@
         <TextView
             android:id="@+id/txtNombreUsuarioHeader"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="16dp"
-            android:gravity="center"
+            android:gravity="center_horizontal|center_vertical"
             android:text="@string/nombreUsuario"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -31,15 +32,13 @@
 
         <ImageButton
             android:id="@+id/imgButtonAdd"
-            android:layout_width="30dp"
-            android:layout_height="0dp"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
             android:layout_marginEnd="12dp"
             android:background="@android:drawable/btn_default"
             android:backgroundTint="@color/colorPrimary"
-            android:foregroundGravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/txtNombreUsuarioHeader"
             app:layout_constraintEnd_toStartOf="@+id/txtNombreUsuarioHeader"
-            app:layout_constraintTop_toTopOf="@+id/txtNombreUsuarioHeader"
             app:srcCompat="@android:drawable/ic_menu_add"
             tools:ignore="ContentDescription" />
 

@@ -13,4 +13,5 @@
     <string name="comentarios">Comentarios</string>
     <string name="ningunComentario">Aún no hay ningún comentario</string>
     <string name="comentarioInfo">nombreUsuario - Fecha</string>
+    <string name="seleccionarFoto">Seleccionar Foto</string>
 </resources>

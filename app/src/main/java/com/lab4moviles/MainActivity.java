@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.imgButtonAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Agregar foto", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, PhotoActivity.class));
             }
         });
     }
@@ -75,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if (user != null) {
             TextView txtNombreUsuarioHeader = findViewById(R.id.txtNombreUsuarioHeader);
             txtNombreUsuarioHeader.setText(Objects.requireNonNull(user.getDisplayName()).split(" ")[0]);
-        } /*else {
-            signInAnonymously();
-        }*/
+        }
         super.onStart();
     }
 
@@ -153,19 +152,4 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    /*private void signInAnonymously() {
-        mAuth.signInAnonymously().addOnSuccessListener(this, new  OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-            }
-        })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                    }
-                });
-    }*/
-
-
 }
