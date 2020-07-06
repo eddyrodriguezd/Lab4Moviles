@@ -4,21 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/txtMainUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="@string/nombreUsuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imgPublicacion"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgPublicacion"
         android:layout_width="0dp"
         android:layout_height="220dp"
         android:layout_marginStart="60dp"
@@ -38,8 +38,8 @@
         android:text="@string/fecha"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/imgPublicacion"
+        app:layout_constraintTop_toBottomOf="@+id/imgPublicacion" />
 
     <TextView
         android:id="@+id/txtMainComments"
@@ -59,17 +59,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:maxLines="5"
         android:text="@string/descripcion"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="@+id/txtMainFecha"
         app:layout_constraintTop_toBottomOf="@+id/txtMainFecha" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonVerMas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp"
         android:text="@string/verMas"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgPublicacion"
         app:layout_constraintTop_toBottomOf="@+id/txtMainDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

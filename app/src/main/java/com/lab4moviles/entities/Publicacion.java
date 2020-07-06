@@ -1,6 +1,7 @@
 package com.lab4moviles.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +10,13 @@ public class Publicacion implements Serializable {
 
     private String id; //También será el ID de la Foto
     private Date fecha;
-    private List<Comentario> listaComentarios;
+    private List<Comentario> comentarios;
     private String descripcion;
     private Map<String, String> usuario;
+
+    public Publicacion() {
+        comentarios = new ArrayList<>();
+    }
 
     public String getId() {
         return id;
@@ -29,12 +34,12 @@ public class Publicacion implements Serializable {
         this.fecha = fecha;
     }
 
-    public List<Comentario> getListaComentarios() {
-        return listaComentarios;
+    public List<Comentario> getComentarios() {
+        return comentarios;
     }
 
-    public void setListaComentarios(List<Comentario> listaComentarios) {
-        this.listaComentarios = listaComentarios;
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     public String getDescripcion() {
@@ -51,5 +56,9 @@ public class Publicacion implements Serializable {
 
     public void setUsuario(Map<String, String> usuario) {
         this.usuario = usuario;
+    }
+
+    public void addComentario(Comentario comentario){
+        comentarios.add(comentario);
     }
 }
