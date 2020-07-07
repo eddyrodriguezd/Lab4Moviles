@@ -1,6 +1,7 @@
 package com.lab4moviles;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,8 @@ import static com.lab4moviles.util.Util.isInternetAvailable;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PHOTO_ACTIVITY_REQUEST_CODE = 1;
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private FirebaseStorage fStorage;
@@ -65,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.imgButtonAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PhotoActivity.class));
+                Intent intent = new Intent(MainActivity.this, PhotoActivity.class);
+                startActivityForResult(intent, PHOTO_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -151,5 +155,18 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    //Cuando retorna de la siguiente actividad
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PHOTO_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                //Hay que actualizar la pantalla con la nueva publicación
+                refreshView();
+            }
+        }
     }
 }
