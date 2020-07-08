@@ -69,7 +69,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String cuerpo_comentario = mEditText_Comentario.getText().toString();
-                //faltaria ver si es que aca abajo en comentario se pone tambien el Map<String, String> usuario
+                //Faltaria ver si es que aca abajo en comentario se pone tambien el Map<String, String> usuario
                 nuevoComentario = new Comentario(userFecha,cuerpo_comentario);
                 if(!nuevoComentario.getTexto().isEmpty()){
 
@@ -122,7 +122,7 @@ public class CommentActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(CommentActivity.this, "Se agrego el comentario", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CommentActivity.this, "Se ha agregado el comentario", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
