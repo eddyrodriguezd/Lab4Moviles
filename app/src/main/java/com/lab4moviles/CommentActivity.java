@@ -13,13 +13,22 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.lab4moviles.entities.Comentario;
 import com.lab4moviles.entities.Publicacion;
 import com.lab4moviles.entities.Usuario;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class CommentActivity extends AppCompatActivity {
 
@@ -33,17 +42,25 @@ public class CommentActivity extends AppCompatActivity {
     private Publicacion publicacion;
 
     //Firebase
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseFirestore fStore;
+    private FirebaseStorage fStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        fStorage = FirebaseStorage.getInstance();
+
         publicacion = (Publicacion) getIntent().getSerializableExtra("publicacion");
         userFecha = (Date) getIntent().getSerializableExtra("userFecha");
 
         mTextView_TituloNuevoComentario = findViewById(R.id.idTituloNuevoComentario);
-        mEditText_Comentario = findViewById(R.id.idNuevoComentario);
+        mEditText_Comentario = findViewById(R.id.txtDescripcionComentario);
         mButton_Publicar = findViewById(R.id.idBotonPublicar);
 
         mTextView_TituloNuevoComentario.append(receiveData());
@@ -56,7 +73,7 @@ public class CommentActivity extends AppCompatActivity {
                 nuevoComentario = new Comentario(userFecha,cuerpo_comentario);
                 if(!nuevoComentario.getTexto().isEmpty()){
 
-                    upload(nuevoComentario, publicacion);
+                    uploadInfo(nuevoComentario, publicacion);
                     Intent intent = new Intent();
                     intent.putExtra("nuevo comentario", nuevoComentario);
                     setResult(RESULT_OK, intent);
@@ -69,6 +86,17 @@ public class CommentActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        user = mAuth.getCurrentUser();
+        if (user != null) {
+            TextView txtNombreUsuarioHeader = findViewById(R.id.txtNombreUsuarioHeader);
+            txtNombreUsuarioHeader.setText(Objects.requireNonNull(user.getDisplayName()).split(" ")[0]);
+            findViewById(R.id.imgButtonAdd).setVisibility(View.GONE);
+        }
+        super.onStart();
+    }
+
     public String receiveData() {
         Intent intent = getIntent();
         String tituloComentario = "error: comentario no encontrado";
@@ -78,8 +106,18 @@ public class CommentActivity extends AppCompatActivity {
         return tituloComentario;
     }
 
-    public void upload(Comentario comentario, Publicacion publicacion) {
-        db.collection("publicaciones").document(publicacion.getId()).collection("comentarios")
+    public void uploadInfo(Comentario comentario, Publicacion publicacion) {
+        Map<String, Object> infoUsuario = new HashMap<>();
+        infoUsuario.put("id", user.getUid());
+        infoUsuario.put("nombre", Objects.requireNonNull(user.getDisplayName()).split(" ")[0]);
+
+        Map<String, Object> infoPublicacion = new HashMap<>();
+        TextInputEditText txtDescripcionComentario = findViewById(R.id.txtDescripcionComentario);
+        infoPublicacion.put("descripcion", txtDescripcionComentario.getText().toString());
+        infoPublicacion.put("fecha", new Timestamp(Calendar.getInstance().getTime()));
+        infoPublicacion.put("usuario", infoUsuario);
+
+        fStore.collection("publicaciones").document(publicacion.getId()).collection("comentarios")
                 .add(comentario)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

@@ -6,21 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".CommentActivity">
 
-    <EditText
-        android:id="@+id/idNuevoComentario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="492dp"
-        android:ems="10"
-        android:gravity="start|top"
+    <include
+        android:id="@+id/toolbar_CommentActivity"
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/txtDescripcionComentario"
+        android:layout_width="347dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="32dp"
+        android:focusable="true"
+        android:gravity="top|start"
         android:inputType="textMultiLine"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:lines="4"
+        android:maxLength="150"
+        android:maxLines="4"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTituloNuevoComentario"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintTop_toBottomOf="@+id/idTituloNuevoComentario" />
 
     <TextView
         android:id="@+id/idTituloNuevoComentario"
@@ -40,13 +46,13 @@
         android:id="@+id/idBotonPublicar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="340dp"
         android:text="Publicar"
         android:textColor="#F44336"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.69"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idNuevoComentario"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescripcionComentario" />
 </androidx.constraintlayout.widget.ConstraintLayout>
