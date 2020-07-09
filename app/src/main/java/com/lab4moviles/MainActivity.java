@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,14 +35,19 @@ import com.lab4moviles.entities.Publicacion;
 import com.lab4moviles.util.FirebaseCallback;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import static com.lab4moviles.util.Util.isInternetAvailable;
+import static java.util.Comparator.comparing;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int PHOTO_ACTIVITY_REQUEST_CODE = 1;
+    private static final int DETAILS_ACTIVITY_REQUEST_CODE = 3;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
@@ -89,8 +95,14 @@ public class MainActivity extends AppCompatActivity {
         getPublicacionesfromFirebase(new FirebaseCallback() {
             @Override
             public void onSuccess() {
+                Collections.sort(listaPublicaciones, new Comparator<Publicacion>() {
+                    public int compare(Publicacion p1, Publicacion p2) {
+                        return p1.getFecha().compareTo(p2.getFecha());
+                    }
+                }.reversed());
+
                 PublicacionesAdapter publicacionesAdapter = new PublicacionesAdapter(listaPublicaciones,
-                        MainActivity.this, fStorage.getReference());
+                        MainActivity.this, fStorage.getReference(), DETAILS_ACTIVITY_REQUEST_CODE);
                 recyclerView.setAdapter(publicacionesAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             }
@@ -105,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             listaPublicaciones.clear();
 
             fStore.collection("publicaciones")
+                    .orderBy("fecha", Query.Direction.DESCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -115,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                                     task.getResult().size();
 
                                     final Publicacion publicacion = document.toObject(Publicacion.class);
+                                    Log.d("infoApp", "fechaPublicacion: " + publicacion.getFecha());
+
                                     publicacion.setId(document.getId());
                                     getComentarios(publicacion, new FirebaseCallback() {
                                                 @Override
@@ -140,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     public void getComentarios(final Publicacion publicacion, final FirebaseCallback callback) {
         fStore.collection("publicaciones").document(publicacion.getId())
                 .collection("comentarios")
+                .orderBy("fecha", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -165,6 +181,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PHOTO_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 //Hay que actualizar la pantalla con la nueva publicación
+                refreshView();
+            }
+        }
+        else if (requestCode == DETAILS_ACTIVITY_REQUEST_CODE){
+            if (resultCode == RESULT_OK) {
+                //Hay que actualizar la pantalla con la nueva cantidad de comentarios
+                Log.d("infoApp", "coming back from details");
                 refreshView();
             }
         }

@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtMainFecha_Detalles" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonAddComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -89,7 +89,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddComment"
         app:layout_constraintEnd_toEndOf="@+id/imgPublicacion_Detalles"
         app:layout_constraintStart_toStartOf="@+id/imgPublicacion_Detalles"
         app:layout_constraintTop_toBottomOf="@+id/txtNoComments" />

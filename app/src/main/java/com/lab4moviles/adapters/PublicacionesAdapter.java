@@ -1,6 +1,7 @@
 package com.lab4moviles.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,14 +27,17 @@ import java.util.List;
 import static com.lab4moviles.util.Util.formatDate;
 
 public class PublicacionesAdapter extends RecyclerView.Adapter<PublicacionesAdapter.PublicacionesViewHolder> {
+
+    private int DETAILS_ACTIVITY_REQUEST_CODE = 3;
     private List<Publicacion> listaPublicaciones;
     private Context context;
     private StorageReference storageReference;
 
-    public PublicacionesAdapter(List<Publicacion> listaPublicaciones, Context c, StorageReference storageReference){
+    public PublicacionesAdapter(List<Publicacion> listaPublicaciones, Context c, StorageReference storageReference, int DETAILS_ACTIVITY_REQUEST_CODE){
         this.listaPublicaciones = listaPublicaciones;
         this.context = c;
         this.storageReference = storageReference;
+        this.DETAILS_ACTIVITY_REQUEST_CODE = DETAILS_ACTIVITY_REQUEST_CODE;
     }
 
     public static class PublicacionesViewHolder extends RecyclerView.ViewHolder{
@@ -71,7 +75,12 @@ public class PublicacionesAdapter extends RecyclerView.Adapter<PublicacionesAdap
         holder.txtMainDescription.setText(publicacion.getDescripcion());
 
         if(!publicacion.getComentarios().isEmpty()){
-            holder.txtMainComments.setText("- " + publicacion.getComentarios().size() + " comentarios");
+
+            String text = "- " + publicacion.getComentarios().size() + " comentario";
+            if(publicacion.getComentarios().size()>1){
+                text+="s";
+            }
+            holder.txtMainComments.setText(text);
         }
         else{
             holder.txtMainComments.setVisibility(View.INVISIBLE);
@@ -86,7 +95,7 @@ public class PublicacionesAdapter extends RecyclerView.Adapter<PublicacionesAdap
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("publicacion", publicacion);
-                context.startActivity(intent);
+                ((Activity) context).startActivityForResult(intent, DETAILS_ACTIVITY_REQUEST_CODE);
             }
         });
 
