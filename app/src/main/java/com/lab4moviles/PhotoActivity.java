@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.Timestamp;
@@ -31,6 +33,8 @@ public class PhotoActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseFirestore fStore;
     private FirebaseStorage fStorage;
+    private int counter2;
+    private TextInputEditText txtDescripcionFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +43,20 @@ public class PhotoActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         fStorage = FirebaseStorage.getInstance();
+        txtDescripcionFoto = findViewById(R.id.txtDescripcionFoto);
 
         findViewById(R.id.idSeleccionarFoto).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Seleccione una imagen"), GALLERY_REQUEST_CODE);
+                if(txtDescripcionFoto.getText().toString().isEmpty() || txtDescripcionFoto.getText().toString().matches("^\\s+$")) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Seleccione una imagen"), GALLERY_REQUEST_CODE);
+                }else{
+                    Toast.makeText(PhotoActivity.this, "Por favor escriba una descripcion para la foto.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -78,7 +88,6 @@ public class PhotoActivity extends AppCompatActivity {
         infoUsuario.put("nombre", Objects.requireNonNull(user.getDisplayName()).split(" ")[0]);
 
         Map<String, Object> infoPublicacion = new HashMap<>();
-        TextInputEditText txtDescripcionFoto = findViewById(R.id.txtDescripcionFoto);
         infoPublicacion.put("descripcion", txtDescripcionFoto.getText().toString());
         infoPublicacion.put("fecha", new Timestamp(Calendar.getInstance().getTime()));
         infoPublicacion.put("usuario", infoUsuario);

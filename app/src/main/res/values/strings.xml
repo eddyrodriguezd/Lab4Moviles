@@ -14,4 +14,5 @@
     <string name="ningunComentario">Aún no hay ningún comentario</string>
     <string name="comentarioInfo">nombreUsuario - Fecha</string>
     <string name="seleccionarFoto">Seleccionar Foto</string>
+    <string name="textoBienvenido">¡Bienvenido a Lab4Moviles!</string>
 </resources>
